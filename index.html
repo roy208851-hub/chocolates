@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chocolates del Ing. Ángel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff4e0; --ink:#3b1f14; --choc:#5a2e1c; --choc2:#7a4128; --pink:#ff5d8f; --gold:#ffc83d; --card:#ffffff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#2a1710;--ink:#fff1de;--card:#3b2218;--choc:#ffc83d;--choc2:#ffd978}
+}
+:root[data-theme="dark"]{--bg:#2a1710;--ink:#fff1de;--card:#3b2218;--choc:#ffc83d;--choc2:#ffd978}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-weight:700;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:28px 20px 48px}
+h1,h2,.big{font-family:'Bagel Fat One','Nunito',system-ui,sans-serif;font-weight:400;margin:0}
+.hero{text-align:center;padding:12px 0 8px}
+.bar{width:150px;height:96px;margin:0 auto 18px;background:linear-gradient(#6b3722,#4a2416);border-radius:12px;position:relative;
+  box-shadow:0 6px 0 #2f160c;transform:rotate(-6deg);
+  background-image:linear-gradient(90deg,transparent 32%,rgba(0,0,0,.35) 33%,transparent 35%,transparent 65%,rgba(0,0,0,.35) 66%,transparent 68%),linear-gradient(transparent 48%,rgba(0,0,0,.35) 50%,transparent 52%),linear-gradient(#6b3722,#4a2416)}
+.bar::after{content:"";position:absolute;left:-6px;right:-6px;bottom:-4px;height:34px;border-radius:8px;background:var(--pink);opacity:.0}
+h1{font-size:clamp(2.4rem,9vw,3.8rem);line-height:1.02;color:var(--choc)}
+.sub{font-size:1.1rem;margin:10px 0 0}
+.deals{display:grid;gap:16px;margin:28px 0}
+@media(min-width:560px){.deals{grid-template-columns:1fr 1fr}}
+.deal{background:var(--card);border:3px solid var(--choc);border-radius:20px;padding:22px;text-align:center;box-shadow:0 6px 0 var(--choc)}
+.deal.best{background:var(--gold);border-color:#3b1f14;box-shadow:0 6px 0 #3b1f14;color:#3b1f14;position:relative}
+.deal.best .tag{position:absolute;top:-14px;right:14px;background:var(--pink);color:#fff;border-radius:999px;padding:3px 12px;font-size:.85rem;transform:rotate(4deg)}
+.qty{font-size:1.1rem}
+.big{font-size:4rem;line-height:1;margin:6px 0}
+.deal small{display:block;font-size:.95rem;opacity:.85}
+.calc{background:var(--card);border-radius:20px;padding:20px;margin-bottom:28px}
+.calc h2{font-size:1.5rem;color:var(--choc);margin-bottom:10px}
+.row{display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0}
+.row button{width:48px;height:48px;border-radius:50%;border:3px solid var(--choc);background:transparent;color:var(--choc);font:800 1.6rem 'Nunito',sans-serif;cursor:pointer}
+.row button:active{background:var(--gold)}
+.row button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+#n{font-size:2.4rem;min-width:3ch;text-align:center;font-family:'Bagel Fat One',sans-serif}
+.total{text-align:center;font-size:1.2rem}
+.total b{font-family:'Bagel Fat One',sans-serif;font-weight:400;font-size:2.2rem;color:var(--pink)}
+.where{background:var(--choc);color:#fff4e0;border-radius:20px;padding:22px 24px}
+:root[data-theme="dark"] .where,:root:not([data-theme="light"]) .where{}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .where{background:#5a2e1c;color:#fff1de}}
+.where h2{font-size:1.5rem;color:var(--gold);margin-bottom:8px}
+.where p{margin:4px 0}
+footer{text-align:center;margin-top:24px;font-size:.95rem;opacity:.8}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="bar" aria-hidden="true"></div>
+    <h1>¡Chocolates a la venta!</h1>
+    <p class="sub">Un antojito dulce entre clases, cortesía del Ing. Ángel.</p>
+  </section>
+
+  <section class="deals" aria-label="Precios">
+    <div class="deal">
+      <div class="qty">1 chocolate</div>
+      <div class="big">$4</div>
+    </div>
+    <div class="deal best">
+      <span class="tag">¡Mejor precio!</span>
+      <div class="qty">3 chocolates</div>
+      <div class="big">$10</div>
+      <small>Ahorras $2</small>
+    </div>
+  </section>
+
+  <section class="calc">
+    <h2>¿Cuánto me toca pagar?</h2>
+    <div class="row">
+      <button id="minus" aria-label="Quitar un chocolate">−</button>
+      <div id="n" aria-live="polite">3</div>
+      <button id="plus" aria-label="Agregar un chocolate">+</button>
+    </div>
+    <p class="total">Total: <b id="total">$10</b></p>
+    <p class="total" id="note" style="font-size:.95rem;margin:4px 0 0"></p>
+  </section>
+
+  <section class="where">
+    <h2>Dónde encontrarme</h2>
+    <p>Aula 10, edificio de la UDM (Tec)</p>
+    <p>Pregunta por el ingeniero Ángel.</p>
+  </section>
+
+  <footer>Pago en efectivo. ¡Hasta que se acaben!</footer>
+</main>
+<script>
+(function(){
+  var n=3, nEl=document.getElementById('n'), t=document.getElementById('total'), note=document.getElementById('note');
+  function price(q){return Math.floor(q/3)*10+(q%3)*4}
+  function render(){
+    nEl.textContent=n; t.textContent='$'+price(n);
+    var saved=n*4-price(n);
+    note.textContent=saved>0?('Con la promo de 3 por $10 ahorras $'+saved):'';
+  }
+  document.getElementById('plus').onclick=function(){n=Math.min(n+1,99);render()};
+  document.getElementById('minus').onclick=function(){n=Math.max(n-1,1);render()};
+  render();
+})();
+</script>
+</body>
+</html>
